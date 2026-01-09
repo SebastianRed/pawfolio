@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pawfolio - Nuestras Mascotas</title>
+    <style>
+        :root {
+            --amarillo-sol: #FFD23F;
+            --azul-electrico: #3BCEAC;
+            --rosa-vibrante: #FF6B9D;
+            --verde-esmeralda: #06FFA5;
+            --purpura-magico: #A459D1;
+            --naranja-energia: #FF8C42;
+            --blanco-suave: #FFFEF9;
+            --texto-oscuro: #2D2D2D;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', 'Fredoka', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 210, 63, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(59, 206, 172, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 90%, rgba(255, 107, 157, 0.12) 0%, transparent 50%),
+                        linear-gradient(135deg, #FFFEF9 0%, #F5F0FF 100%);
+            color: var(--texto-oscuro);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle, rgba(255, 210, 63, 0.05) 2px, transparent 2px),
+                radial-gradient(circle, rgba(59, 206, 172, 0.05) 2px, transparent 2px);
+            background-size: 60px 60px, 80px 80px;
+            background-position: 0 0, 40px 40px;
+            animation: movePattern 60s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes movePattern {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 1.5rem 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: darkorchid;
+        }
+
+        .logo {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            filter: drop-shadow(0 10px 30px rgba(255, 107, 157, 0.3));
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, 
+                var(--rosa-vibrante) 0%, 
+                var(--purpura-magico) 25%,
+                var(--azul-electrico) 50%,
+                var(--verde-esmeralda) 75%,
+                var(--amarillo-sol) 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.7;
+            font-weight: 700;
+        }
+
+        .pets-grid {
+            display: grid;
+            gap: 2.5rem;
+            padding: 2rem 1.5rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pet-card {
+            display: block;
+            text-decoration: none;
+            background: white;
+            border-radius: 35px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .pet-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 35px;
+            padding: 4px;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .pet-card.toby::before { background: linear-gradient(135deg, var(--amarillo-sol), var(--naranja-energia)); }
+        .pet-card.luna::before { background: linear-gradient(135deg, var(--azul-electrico), var(--purpura-magico)); }
+        .pet-card.mia::before { background: linear-gradient(135deg, var(--rosa-vibrante), var(--purpura-magico)); }
+        .pet-card.max::before { background: linear-gradient(135deg, var(--verde-esmeralda), var(--azul-electrico)); }
+
+        .pet-card:hover::before { opacity: 1; }
+        .pet-card:hover {
+            transform: translateY(-12px) rotate(-1deg);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+        }
+
+        .pet-card-inner {
+            display: flex;
+            flex-direction: column; /* Por defecto vertical */
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .pet-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pet-image-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 6px solid white;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .pet-card:hover .pet-image-container {
+            transform: scale(1.1) rotate(5deg);
+            border-radius: 40% 60% 50% 50% / 60% 40% 60% 40%;
+        }
+
+        .pet-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .pet-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .pet-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .pet-name {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .pet-card.toby .pet-name { color: #D19600; }
+        .pet-card.luna .pet-name { color: #2BA88F; }
+        .pet-card.mia .pet-name { color: #E6377A; }
+        .pet-card.max .pet-name { color: #05CC7F; }
+
+        .pet-emoji { font-size: 2.5rem; }
+
+        .pet-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.3rem;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pet-card.toby .pet-type {
+            background: linear-gradient(135deg, var(--amarillo-sol), #FFED4E);
+            color: #8B6200;
+        }
+
+        .pet-card.luna .pet-type {
+            background: linear-gradient(135deg, var(--azul-electrico), #52E3C2);
+            color: white;
+        }
+
+        .pet-card.mia .pet-type {
+            background: linear-gradient(135deg, var(--rosa-vibrante), #FF8AB8);
+            color: white;
+        }
+
+        .pet-card.max .pet-type {
+            background: linear-gradient(135deg, var(--verde-esmeralda), #3DFFC4);
+            color: #003D2B;
+        }
+
+        .pet-description {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            opacity: 0.8;
+            font-weight: 600;
+        }
+
+        .cta-section {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-top: 1rem;
+            border-top: 2px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .pet-card:hover .cta-button::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .pet-card.toby .cta-button {
+            background: linear-gradient(135deg, var(--amarillo-sol), #FFED4E);
+            color: #8B6200;
+            box-shadow: 0 10px 30px rgba(255, 210, 63, 0.4);
+        }
+
+        .pet-card.luna .cta-button {
+            background: linear-gradient(135deg, var(--azul-electrico), #52E3C2);
+            color: white;
+            box-shadow: 0 10px 30px rgba(59, 206, 172, 0.4);
+        }
+
+        .pet-card.mia .cta-button {
+            background: linear-gradient(135deg, var(--rosa-vibrante), #FF8AB8);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+        }
+
+        .pet-card.max .cta-button {
+            background: linear-gradient(135deg, var(--verde-esmeralda), #3DFFC4);
+            color: #003D2B;
+            box-shadow: 0 10px 30px rgba(6, 255, 165, 0.4);
+        }
+
+        .pet-card:hover .cta-button {
+            transform: translateX(10px);
+        }
+
+        /* --- NUEVAS REGLAS DE RESPONSIVE --- */
+
+        /* De 768px en adelante: Se muestran en 2 columnas */
+        @media (min-width: 768px) {
+            .pets-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* De 1025px en adelante: El contenido de la tarjeta se vuelve horizontal */
+        @media (min-width: 1025px) {
+            .pet-card-inner {
+                flex-direction: row;
+            }
+            .pet-image-container {
+                width: 220px;
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-title">
+            <h1>Pawfolio<span class="gradient-text">🐾</span></h1>
+        </div>
+        <p class="subtitle">Nuestras mascotas</p>
+    </header>
+
+    <main class="pets-grid">
+        <a href="perfil-toby.html" class="pet-card toby">
+            <div class="pet-card-inner">
+                <div class="pet-visual">
+                    <div class="pet-image-container">
+                        <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&h=400&fit=crop" alt="Toby" class="pet-image">
+                    </div>
+                </div>
+                <div class="pet-info">
+                    <div class="pet-header">
+                        <h2 class="pet-name">Toby</h2>
+                        <span class="pet-emoji">🐶</span>
+                    </div>
+                    <span class="pet-type">Golden Retriever</span>
+                    <p class="pet-description">El más juguetón y enérgico de la familia. Le encanta correr en el parque y nadar en el lago.</p>
+                    <div class="cta-section">
+                        <div class="cta-button"><span>Conocer más ▶</span></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <a href="perfil-luna.html" class="pet-card luna">
+            <div class="pet-card-inner">
+                <div class="pet-visual">
+                    <div class="pet-image-container">
+                        <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&h=400&fit=crop" alt="Luna" class="pet-image">
+                    </div>
+                </div>
+                <div class="pet-info">
+                    <div class="pet-header">
+                        <h2 class="pet-name">Luna</h2>
+                        <span class="pet-emoji">🐱</span>
+                    </div>
+                    <span class="pet-type">Gata Siamesa</span>
+                    <p class="pet-description">Elegante y misteriosa. Pasa sus días entre siestas al sol y exploraciones nocturnas. La reina.</p>
+                    <div class="cta-section">
+                        <div class="cta-button"><span>Conocer más ▶</span></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <a href="perfil-mia.html" class="pet-card mia">
+            <div class="pet-card-inner">
+                <div class="pet-visual">
+                    <div class="pet-image-container">
+                        <img src="https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=400&h=400&fit=crop" alt="Mia" class="pet-image">
+                    </div>
+                </div>
+                <div class="pet-info">
+                    <div class="pet-header">
+                        <h2 class="pet-name">Mia</h2>
+                        <span class="pet-emoji">🐰</span>
+                    </div>
+                    <span class="pet-type">Coneja Holandesa</span>
+                    <p class="pet-description">Pequeña pero valiente. Le encanta saltar y explorar cada rincón de la casa.</p>
+                    <div class="cta-section">
+                        <div class="cta-button"><span>Conocer más ▶</span></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <a href="perfil-max.html" class="pet-card max">
+            <div class="pet-card-inner">
+                <div class="pet-visual">
+                    <div class="pet-image-container">
+                        <img src="https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?w=400&h=400&fit=crop" alt="Max" class="pet-image">
+                    </div>
+                </div>
+                <div class="pet-info">
+                    <div class="pet-header">
+                        <h2 class="pet-name">Max</h2>
+                        <span class="pet-emoji">🦜</span>
+                    </div>
+                    <span class="pet-type">Loro Guacamayo</span>
+                    <p class="pet-description">El más conversador y carismático. Llena la casa de colores y alegría cada día.</p>
+                    <div class="cta-section">
+                        <div class="cta-button"><span>Conocer más ▶</span></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </main>
+</body>
+</html>
