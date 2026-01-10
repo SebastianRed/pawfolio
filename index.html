@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,9 +26,9 @@
         body {
             font-family: 'Quicksand', 'Fredoka', -apple-system, BlinkMacSystemFont, sans-serif;
             background: radial-gradient(circle at 20% 50%, rgba(255, 210, 63, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(59, 206, 172, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 90%, rgba(255, 107, 157, 0.12) 0%, transparent 50%),
-                        linear-gradient(135deg, #FFFEF9 0%, #F5F0FF 100%);
+                radial-gradient(circle at 80% 80%, rgba(59, 206, 172, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 90%, rgba(255, 107, 157, 0.12) 0%, transparent 50%),
+                linear-gradient(135deg, #FFFEF9 0%, #F5F0FF 100%);
             color: var(--texto-oscuro);
             overflow-x: hidden;
             min-height: 100vh;
@@ -41,7 +42,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: 
+            background:
                 radial-gradient(circle, rgba(255, 210, 63, 0.05) 2px, transparent 2px),
                 radial-gradient(circle, rgba(59, 206, 172, 0.05) 2px, transparent 2px);
             background-size: 60px 60px, 80px 80px;
@@ -52,8 +53,13 @@
         }
 
         @keyframes movePattern {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(60px, 60px); }
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(60px, 60px);
+            }
         }
 
         .hero {
@@ -84,12 +90,12 @@
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, 
-                var(--rosa-vibrante) 0%, 
-                var(--purpura-magico) 25%,
-                var(--azul-electrico) 50%,
-                var(--verde-esmeralda) 75%,
-                var(--amarillo-sol) 100%);
+            background: linear-gradient(135deg,
+                    var(--rosa-vibrante) 0%,
+                    var(--purpura-magico) 25%,
+                    var(--azul-electrico) 50%,
+                    var(--verde-esmeralda) 75%,
+                    var(--amarillo-sol) 100%);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -98,8 +104,15 @@
         }
 
         @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .subtitle {
@@ -135,6 +148,7 @@
             inset: 0;
             border-radius: 35px;
             padding: 4px;
+            background: var(--card-gradient);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
@@ -143,12 +157,10 @@
             transition: opacity 0.4s ease;
         }
 
-        .pet-card.toby::before { background: linear-gradient(135deg, var(--amarillo-sol), var(--naranja-energia)); }
-        .pet-card.luna::before { background: linear-gradient(135deg, var(--azul-electrico), var(--purpura-magico)); }
-        .pet-card.mia::before { background: linear-gradient(135deg, var(--rosa-vibrante), var(--purpura-magico)); }
-        .pet-card.max::before { background: linear-gradient(135deg, var(--verde-esmeralda), var(--azul-electrico)); }
+        .pet-card:hover::before {
+            opacity: 1;
+        }
 
-        .pet-card:hover::before { opacity: 1; }
         .pet-card:hover {
             transform: translateY(-12px) rotate(-1deg);
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
@@ -156,7 +168,7 @@
 
         .pet-card-inner {
             display: flex;
-            flex-direction: column; /* Por defecto vertical */
+            flex-direction: column;
             padding: 2rem;
             gap: 2rem;
         }
@@ -207,14 +219,12 @@
             font-weight: 900;
             letter-spacing: -1px;
             line-height: 1;
+            color: var(--card-color);
         }
 
-        .pet-card.toby .pet-name { color: #D19600; }
-        .pet-card.luna .pet-name { color: #2BA88F; }
-        .pet-card.mia .pet-name { color: #E6377A; }
-        .pet-card.max .pet-name { color: #05CC7F; }
-
-        .pet-emoji { font-size: 2.5rem; }
+        .pet-emoji {
+            font-size: 2.5rem;
+        }
 
         .pet-type {
             display: inline-flex;
@@ -226,26 +236,8 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-        }
-
-        .pet-card.toby .pet-type {
-            background: linear-gradient(135deg, var(--amarillo-sol), #FFED4E);
-            color: #8B6200;
-        }
-
-        .pet-card.luna .pet-type {
-            background: linear-gradient(135deg, var(--azul-electrico), #52E3C2);
-            color: white;
-        }
-
-        .pet-card.mia .pet-type {
-            background: linear-gradient(135deg, var(--rosa-vibrante), #FF8AB8);
-            color: white;
-        }
-
-        .pet-card.max .pet-type {
-            background: linear-gradient(135deg, var(--verde-esmeralda), #3DFFC4);
-            color: #003D2B;
+            background: var(--card-gradient);
+            color: var(--card-text-color);
         }
 
         .pet-description {
@@ -273,6 +265,9 @@
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             overflow: hidden;
+            background: var(--card-gradient);
+            color: var(--card-text-color);
+            box-shadow: var(--card-shadow);
         }
 
         .cta-button::before {
@@ -298,48 +293,28 @@
             z-index: 1;
         }
 
-        .pet-card.toby .cta-button {
-            background: linear-gradient(135deg, var(--amarillo-sol), #FFED4E);
-            color: #8B6200;
-            box-shadow: 0 10px 30px rgba(255, 210, 63, 0.4);
-        }
-
-        .pet-card.luna .cta-button {
-            background: linear-gradient(135deg, var(--azul-electrico), #52E3C2);
-            color: white;
-            box-shadow: 0 10px 30px rgba(59, 206, 172, 0.4);
-        }
-
-        .pet-card.mia .cta-button {
-            background: linear-gradient(135deg, var(--rosa-vibrante), #FF8AB8);
-            color: white;
-            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
-        }
-
-        .pet-card.max .cta-button {
-            background: linear-gradient(135deg, var(--verde-esmeralda), #3DFFC4);
-            color: #003D2B;
-            box-shadow: 0 10px 30px rgba(6, 255, 165, 0.4);
-        }
-
         .pet-card:hover .cta-button {
             transform: translateX(10px);
         }
 
-        /* --- NUEVAS REGLAS DE RESPONSIVE --- */
+        .loading {
+            text-align: center;
+            padding: 4rem 2rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
 
-        /* De 768px en adelante: Se muestran en 2 columnas */
         @media (min-width: 768px) {
             .pets-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        /* De 1025px en adelante: El contenido de la tarjeta se vuelve horizontal */
         @media (min-width: 1025px) {
             .pet-card-inner {
                 flex-direction: row;
             }
+
             .pet-image-container {
                 width: 220px;
                 height: 220px;
@@ -347,6 +322,7 @@
         }
     </style>
 </head>
+
 <body>
     <header class="hero">
         <div class="hero-title">
@@ -355,90 +331,56 @@
         <p class="subtitle">Nuestras mascotas</p>
     </header>
 
-    <main class="pets-grid">
-        <a href="perfil-toby.html" class="pet-card toby">
-            <div class="pet-card-inner">
-                <div class="pet-visual">
-                    <div class="pet-image-container">
-                        <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&h=400&fit=crop" alt="Toby" class="pet-image">
-                    </div>
-                </div>
-                <div class="pet-info">
-                    <div class="pet-header">
-                        <h2 class="pet-name">Toby</h2>
-                        <span class="pet-emoji">🐶</span>
-                    </div>
-                    <span class="pet-type">Golden Retriever</span>
-                    <p class="pet-description">El más juguetón y enérgico de la familia. Le encanta correr en el parque y nadar en el lago.</p>
-                    <div class="cta-section">
-                        <div class="cta-button"><span>Conocer más ▶</span></div>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <a href="perfil-luna.html" class="pet-card luna">
-            <div class="pet-card-inner">
-                <div class="pet-visual">
-                    <div class="pet-image-container">
-                        <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&h=400&fit=crop" alt="Luna" class="pet-image">
-                    </div>
-                </div>
-                <div class="pet-info">
-                    <div class="pet-header">
-                        <h2 class="pet-name">Luna</h2>
-                        <span class="pet-emoji">🐱</span>
-                    </div>
-                    <span class="pet-type">Gata Siamesa</span>
-                    <p class="pet-description">Elegante y misteriosa. Pasa sus días entre siestas al sol y exploraciones nocturnas. La reina.</p>
-                    <div class="cta-section">
-                        <div class="cta-button"><span>Conocer más ▶</span></div>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <a href="perfil-mia.html" class="pet-card mia">
-            <div class="pet-card-inner">
-                <div class="pet-visual">
-                    <div class="pet-image-container">
-                        <img src="https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=400&h=400&fit=crop" alt="Mia" class="pet-image">
-                    </div>
-                </div>
-                <div class="pet-info">
-                    <div class="pet-header">
-                        <h2 class="pet-name">Mia</h2>
-                        <span class="pet-emoji">🐰</span>
-                    </div>
-                    <span class="pet-type">Coneja Holandesa</span>
-                    <p class="pet-description">Pequeña pero valiente. Le encanta saltar y explorar cada rincón de la casa.</p>
-                    <div class="cta-section">
-                        <div class="cta-button"><span>Conocer más ▶</span></div>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <a href="perfil-max.html" class="pet-card max">
-            <div class="pet-card-inner">
-                <div class="pet-visual">
-                    <div class="pet-image-container">
-                        <img src="https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?w=400&h=400&fit=crop" alt="Max" class="pet-image">
-                    </div>
-                </div>
-                <div class="pet-info">
-                    <div class="pet-header">
-                        <h2 class="pet-name">Max</h2>
-                        <span class="pet-emoji">🦜</span>
-                    </div>
-                    <span class="pet-type">Loro Guacamayo</span>
-                    <p class="pet-description">El más conversador y carismático. Llena la casa de colores y alegría cada día.</p>
-                    <div class="cta-section">
-                        <div class="cta-button"><span>Conocer más ▶</span></div>
-                    </div>
-                </div>
-            </div>
-        </a>
+    <main class="pets-grid" id="petsGrid">
+        <div class="loading">Cargando mascotas...</div>
     </main>
+
+    <script src="pets-data.js"></script>
+    <script>
+        function getTextColor(pet) {
+            const lightBg = ['toby'];
+            return lightBg.includes(pet.id) ? '#8B6200' : 'white';
+        }
+
+        function renderPets() {
+            const grid = document.getElementById('petsGrid');
+            grid.innerHTML = '';
+
+            petsData.pets.forEach(pet => {
+                const card = document.createElement('a');
+                card.href = `perfil.html?pet=${pet.id}`;
+                card.className = 'pet-card';
+                card.style.setProperty('--card-gradient', `linear-gradient(135deg, ${pet.gradienteInicio}, ${pet.gradienteFin})`);
+                card.style.setProperty('--card-color', pet.colorPrincipal);
+                card.style.setProperty('--card-text-color', getTextColor(pet));
+                card.style.setProperty('--card-shadow', `0 10px 30px ${pet.gradienteInicio}66`);
+
+                card.innerHTML = `
+                    <div class="pet-card-inner">
+                        <div class="pet-visual">
+                            <div class="pet-image-container">
+                                <img src="${pet.imagenPrincipal}" alt="${pet.nombre}" class="pet-image">
+                            </div>
+                        </div>
+                        <div class="pet-info">
+                            <div class="pet-header">
+                                <h2 class="pet-name">${pet.nombre}</h2>
+                            </div>
+                            <span class="pet-type">${pet.tipo}</span>
+                            <p class="pet-description">${pet.descripcionCorta}</p>
+                            <div class="cta-section">
+                                <div class="cta-button"><span>Conocer más ▶</span></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        renderPets();
+    </script>
 </body>
+
 </html>
