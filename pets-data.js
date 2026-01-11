@@ -223,6 +223,11 @@ const petsData = {
           "thumb": "https://res.cloudinary.com/diy8ctvnv/image/upload/f_auto,q_auto,w_400,c_fill/gufi-5.jpg",
           "full": "https://res.cloudinary.com/diy8ctvnv/image/upload/gufi-5.jpg",
           "alt": "Gufi 5"
+        },
+        {
+          "thumb": "https://res.cloudinary.com/diy8ctvnv/image/upload/f_auto,q_auto,w_400,c_fill/gufi-6.jpg",
+          "full": "https://res.cloudinary.com/diy8ctvnv/image/upload/gufi-6.jpg",
+          "alt": "Gufi 6"
         }
       ]
     },
