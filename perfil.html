@@ -4,619 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil - Pawfolio</title>
-    <style>
-        :root {
-            --color-principal: #D19600;
-            --color-secundario: #FFED4E;
-            --gradiente-inicio: #FFD23F;
-            --gradiente-fin: #FF8C42;
-            --blanco-suave: #FFFEF9;
-            --texto-oscuro: #2D2D2D;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Quicksand', 'Fredoka', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: radial-gradient(circle at 20% 50%, rgba(255, 210, 63, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(255, 140, 66, 0.15) 0%, transparent 50%),
-                        linear-gradient(135deg, #FFFEF9 0%, #FFF8E7 100%);
-            color: var(--texto-oscuro);
-            overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: 
-                radial-gradient(circle, rgba(255, 210, 63, 0.05) 2px, transparent 2px),
-                radial-gradient(circle, rgba(255, 140, 66, 0.05) 2px, transparent 2px);
-            background-size: 60px 60px, 80px 80px;
-            background-position: 0 0, 40px 40px;
-            animation: movePattern 60s linear infinite;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        @keyframes movePattern {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(60px, 60px); }
-        }
-
-        .back-button {
-            position: fixed;
-            top: 2rem;
-            left: 2rem;
-            z-index: 100;
-            padding: 1rem 1.5rem;
-            background: white;
-            border-radius: 50px;
-            text-decoration: none;
-            color: var(--color-principal);
-            font-weight: 900;
-            font-size: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .back-button:hover {
-            transform: translateX(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 6rem 1.5rem 3rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .profile-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 4rem 2rem;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            text-align: center;
-            background: linear-gradient(135deg, var(--gradiente-inicio), var(--gradiente-fin));
-            border-radius: 30px;
-            color: white;
-        }
-
-        .profile-image-container {
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 8px solid white;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-            cursor: pointer;
-        }
-
-        .profile-image-container:hover {
-            transform: scale(1.05) rotate(5deg);
-        }
-
-        .profile-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .profile-title {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .profile-name {
-            font-size: clamp(3rem, 10vw, 5rem);
-            font-weight: 900;
-            letter-spacing: -2px;
-            background: linear-gradient(135deg, white, snow);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .profile-emoji {
-            font-size: clamp(3rem, 10vw, 5rem);
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .profile-breed {
-            display: inline-flex;
-            align-items: center;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, var(--gradiente-inicio), var(--color-secundario));
-            color: #2D2D2D;
-            border-radius: 50px;
-            font-weight: 900;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .info-grid {
-            display: grid;
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .info-card {
-            background: white;
-            border-radius: 30px;
-            padding: 2.5rem;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .info-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 6px;
-            height: 100%;
-            background: linear-gradient(180deg, var(--gradiente-inicio), var(--gradiente-fin));
-            transform: scaleY(0);
-            transition: transform 0.4s ease;
-        }
-
-        .info-card:hover::before {
-            transform: scaleY(1);
-        }
-
-        .info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-        }
-
-        .info-card h2 {
-            font-size: 1.8rem;
-            color: var(--color-principal);
-            margin-bottom: 1.5rem;
-            font-weight: 900;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .info-card-icon {
-            font-size: 2rem;
-        }
-
-        .info-card p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            opacity: 0.85;
-            font-weight: 600;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, rgba(255, 210, 63, 0.1), rgba(255, 237, 78, 0.1));
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .stat-item:hover {
-            background: linear-gradient(135deg, rgba(255, 210, 63, 0.2), rgba(255, 237, 78, 0.2));
-            transform: scale(1.05);
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--color-principal);
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            opacity: 0.7;
-            margin-top: 0.5rem;
-        }
-
-        .favorites-compact {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .favorite-compact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 1rem;
-            background: linear-gradient(135deg, rgba(255, 210, 63, 0.08), rgba(255, 237, 78, 0.08));
-            border-radius: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .favorite-compact-item:hover {
-            background: linear-gradient(135deg, rgba(255, 210, 63, 0.15), rgba(255, 237, 78, 0.15));
-            transform: scale(1.05);
-        }
-
-        .favorite-compact-item .favorite-icon {
-            font-size: 1.8rem;
-        }
-
-        .favorite-compact-item .favorite-text {
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-
-        .personality-description {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            opacity: 0.85;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-
-        .health-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .health-section:last-of-type {
-            margin-bottom: 1rem;
-        }
-
-        .health-subtitle {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--color-principal);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .health-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .health-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem 1rem;
-            background: linear-gradient(135deg, rgba(255, 210, 63, 0.05), rgba(255, 237, 78, 0.05));
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .health-item:hover {
-            background: linear-gradient(135deg, rgba(255, 210, 63, 0.1), rgba(255, 237, 78, 0.1));
-            transform: translateX(5px);
-        }
-
-        .health-name {
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-
-        .health-status {
-            font-weight: 800;
-            font-size: 0.95rem;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .status-ok {
-            background: linear-gradient(135deg, #06FFA5, #3DFFC4);
-            color: #003D2B;
-        }
-
-        .next-appointment {
-            padding: 1rem 1.5rem;
-            background: linear-gradient(135deg, rgba(255, 210, 63, 0.15), rgba(255, 237, 78, 0.15));
-            border-radius: 15px;
-            font-size: 1rem;
-            color: var(--color-principal);
-            border-left: 4px solid var(--gradiente-inicio);
-        }
-
-        .notes-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-            margin-top: 1.5rem;
-        }
-
-        .note-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1.2rem;
-            background: linear-gradient(135deg, rgba(255, 210, 63, 0.05), rgba(255, 237, 78, 0.05));
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            border-left: 4px solid var(--gradiente-inicio);
-        }
-
-        .note-item:hover {
-            background: linear-gradient(135deg, rgba(255, 210, 63, 0.1), rgba(255, 237, 78, 0.1));
-            transform: translateX(5px);
-        }
-
-        .note-icon {
-            font-size: 1.5rem;
-            min-width: 1.5rem;
-        }
-
-        .note-item p {
-            margin: 0;
-            font-size: 1rem;
-            line-height: 1.6;
-            font-weight: 600;
-        }
-
-        .note-item strong {
-            color: var(--color-principal);
-            font-weight: 900;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .gallery-item {
-            aspect-ratio: 1;
-            border-radius: 25px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .gallery-item::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0);
-            transition: background 0.3s ease;
-        }
-
-        .gallery-item:hover::after {
-            background: rgba(0, 0, 0, 0.1);
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05) rotate(2deg);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .gallery-counter {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 0.5rem 1.2rem;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: zoomIn 0.3s ease;
-        }
-
-        @keyframes zoomIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .modal-image {
-            max-width: 100%;
-            max-height: 90vh;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            border-radius: 15px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: -50px;
-            right: 0;
-            background: white;
-            color: var(--color-principal);
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 900;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-close:hover {
-            transform: scale(1.1) rotate(90deg);
-            background: var(--gradiente-inicio);
-        }
-
-        .modal-nav {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 900;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            z-index: 1001;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .modal-nav:hover {
-            transform: translateY(-50%) scale(1.1);
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        .modal-prev {
-            left: 2rem;
-        }
-
-        .modal-next {
-            right: 2rem;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 4rem 2rem;
-            font-size: 1.5rem;
-            opacity: 0.6;
-        }
-
-        @media (max-width: 768px) {
-            .modal-close {
-                top: 10px;
-                right: 10px;
-            }
-
-            .modal-nav {
-                width: 45px;
-                height: 45px;
-                font-size: 1.3rem;
-            }
-
-            .modal-prev {
-                left: 1rem;
-            }
-
-            .modal-next {
-                right: 1rem;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .profile-header {
-                flex-direction: row;
-                text-align: left;
-                justify-content: center;
-            }
-
-            .info-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .back-button {
-                top: 2.5rem;
-                left: 2.5rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .profile-image-container {
-                width: 300px;
-                height: 300px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="src/style.css">
 </head>
 <body>
     <a href="index.html" class="back-button">
@@ -642,9 +30,8 @@
     <script>
         let currentPet = null;
         let currentImageIndex = 0;
-        let isProfileImage = false; // Flag para saber si estamos viendo la foto de perfil
+        let isProfileImage = false;
         
-        // Variables para el swipe
         let touchStartX = 0;
         let touchEndX = 0;
         let touchStartY = 0;
@@ -820,7 +207,7 @@
         }
 
         function openModal(index) {
-            isProfileImage = false; // Es una foto de la galería
+            isProfileImage = false;
             currentImageIndex = index;
             const modal = document.getElementById('imageModal');
             const modalImage = document.getElementById('modalImage');
@@ -829,11 +216,9 @@
             modalImage.src = img.full;
             modalImage.alt = img.alt;
             
-            // Mostrar botones de navegación para la galería
             document.querySelector('.modal-prev').style.display = 'flex';
             document.querySelector('.modal-next').style.display = 'flex';
             
-            // Actualizar contador
             updateGalleryCounter();
             
             modal.classList.add('active');
@@ -841,20 +226,17 @@
         }
 
         function openProfileImageModal() {
-            isProfileImage = true; // Es la foto de perfil
+            isProfileImage = true;
             const modal = document.getElementById('imageModal');
             const modalImage = document.getElementById('modalImage');
             
-            // Usar la imagen de perfil de alta calidad
             const profileImageUrl = currentPet.imagenPerfil.replace('w=600&h=600', 'w=1200&h=1200');
             modalImage.src = profileImageUrl;
             modalImage.alt = `${currentPet.nombre} - Foto de perfil`;
             
-            // Ocultar los botones de navegación para la foto de perfil
             document.querySelector('.modal-prev').style.display = 'none';
             document.querySelector('.modal-next').style.display = 'none';
             
-            // Ocultar contador
             updateGalleryCounter();
             
             modal.classList.add('active');
@@ -867,13 +249,11 @@
                 modal.classList.remove('active');
                 document.body.style.overflow = 'auto';
                 
-                // Resetear el flag
                 isProfileImage = false;
             }
         }
 
         function changeImage(event, direction) {
-            // No permitir navegación si estamos viendo la foto de perfil
             if (isProfileImage) return;
             
             event.stopPropagation();
@@ -894,12 +274,10 @@
                 modalImage.alt = img.alt;
                 modalImage.style.opacity = '1';
                 
-                // Actualizar contador
                 updateGalleryCounter();
             }, 150);
         }
 
-        // Funciones para detectar swipe
         function handleTouchStart(event) {
             touchStartX = event.changedTouches[0].screenX;
             touchStartY = event.changedTouches[0].screenY;
@@ -912,29 +290,24 @@
         }
 
         function handleSwipe() {
-            // Solo permitir swipe si NO es la foto de perfil
             if (isProfileImage) return;
             
             const modal = document.getElementById('imageModal');
             if (!modal.classList.contains('active')) return;
             
-            const swipeThreshold = 50; // Mínimo de píxeles para considerar un swipe
+            const swipeThreshold = 50;
             const deltaX = touchEndX - touchStartX;
             const deltaY = touchEndY - touchStartY;
             
-            // Verificar que el swipe sea más horizontal que vertical
             if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > swipeThreshold) {
                 if (deltaX > 0) {
-                    // Swipe derecha - imagen anterior
                     changeImage(new Event('swipe'), -1);
                 } else {
-                    // Swipe izquierda - imagen siguiente
                     changeImage(new Event('swipe'), 1);
                 }
             }
         }
 
-        // Agregar event listeners para touch
         document.addEventListener('touchstart', handleTouchStart, false);
         document.addEventListener('touchend', handleTouchEnd, false);
 
@@ -952,7 +325,6 @@
         document.addEventListener('keydown', function(event) {
             const modal = document.getElementById('imageModal');
             if (modal.classList.contains('active')) {
-                // Solo permitir navegación con flechas si NO es la foto de perfil
                 if (!isProfileImage) {
                     if (event.key === 'ArrowLeft') {
                         changeImage(event, -1);
